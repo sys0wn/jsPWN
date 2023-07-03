@@ -4,22 +4,12 @@ from selenium import webdriver
 from bs4 import BeautifulSoup
 import os
 import jsbeautifier
-import requests
 import re
 
 # Prints help if arguments are missing
 
-if (len(sys.argv[1]) < 7):
-    print("-------------------------------------------")
-    print('Usage: python3 jsPWN.py "https://example.com/" h1')
-    print("Requirements: pip install -r requirements.txt\n")
-    print("The second argument(h1) is the HTML tag used to embed the javascript into the HTML context on remote pages.")
-    print("So, if the target website has: <script src = 'https://example.com/'> you need to check how the javascript on https://example.com/ is embedded")
-    print("As most websites use <pre> anyway, checking this for one of the external scripts should be sufficent\n")
-    print("Example: <html><body><pre>window.alert(1)</pre></body></html>   --->   python3 jsPWN.py 'https://example.com' pre")
-    print("-------------------------------------------")
 
-else:
+try:
 
     print("Fetching HTML and parsing it ...")
 
@@ -28,8 +18,8 @@ else:
     target = sys.argv[1]
 
     # Reads the htmlTag used to store the remote scripts
-    
-    if(len(sys.argv) == 3):
+
+    if (len(sys.argv) == 3):
         htmlTag = sys.argv[2]
     else:
         htmlTag = "pre"
@@ -39,7 +29,7 @@ else:
     os.environ['MOZ_HEADLESS'] = '1'
 
     # Prepares firefox driver for selenium
-    
+
     browser = webdriver.Firefox()
 
     # Sends a GET request to the provided target by opening the browser
@@ -76,8 +66,8 @@ else:
 
     # Cuts the length if it exceededs 255 bytes(Linux maxFileNameLength)
 
-    if(len(outputDirectory) > 255):
-    
+    if (len(outputDirectory) > 255):
+
         outputDirectory = outputDirectory[:252] + "CUT"
         print("Filename length > 255 -> Cutting it off")
 
@@ -104,7 +94,7 @@ else:
             with open(outputDirectory + "/" + str(i), "w") as file:
 
                 # Parses the url(as string) of the remote script out of script tag
-                
+
                 urlOfRemoteScript = str(scriptTag["src"])
 
                 # Checks if src is given as "/something" instead of https://example.com/something
@@ -131,13 +121,14 @@ else:
                     # Combine the domain and path back to a URL
 
                     urlOfRemoteScript = f"{urlScheme}{targetDomain}{urlOfRemoteScript}"
-                
+
                 # GETs the remote javascript and converts it to a string(same as at top basically)
 
                 browser = webdriver.Firefox()
                 browser.get(urlOfRemoteScript)
                 remoteHTML = str(browser.page_source)
-                print(f"Fetching remote script {i} from: {urlOfRemoteScript} ...")
+                print(
+                    f"Fetching remote script {i} from: {urlOfRemoteScript} ...")
                 time.sleep(5)
 
                 browser.close()
@@ -145,15 +136,16 @@ else:
                 soup2 = BeautifulSoup(remoteHTML, 'html.parser')
 
                 try:
-                
+
                     remoteJavascript = soup2.find_all(htmlTag)
 
-                    if(len(remoteJavascript) != 1):
-                        if(len(remoteJavascript) == 0):
-                          raise Exception() 
+                    if (len(remoteJavascript) != 1):
+                        if (len(remoteJavascript) == 0):
+                            raise Exception()
                         else:
 
-                            print(f"{urlOfRemoteScript} has to be fetched manually, as the given html tag '<{htmlTag}>' occurs more than once")
+                            print(
+                                f"{urlOfRemoteScript} has to be fetched manually, as the given html tag '<{htmlTag}>' occurs more than once")
 
                     else:
 
@@ -163,16 +155,16 @@ else:
 
                         # Beautify the remoteDecodedJavascript
 
-                        finalJavascript = jsbeautifier.beautify(remoteDecodedJavascript)
+                        finalJavascript = jsbeautifier.beautify(
+                            remoteDecodedJavascript)
 
                         # Writes the remoteDecodedJavascript to the file
 
                         file.write(finalJavascript)
                 except:
-                    
-                    print(f"Provided HTML tag '<{htmlTag}'> not found on: {urlOfRemoteScript}")
 
-
+                    print(
+                        f"Provided HTML tag '<{htmlTag}'> not found on: {urlOfRemoteScript}")
 
         else:
 
@@ -185,6 +177,17 @@ else:
                 file.write(str(jsbeautifier.beautify(scriptTag.string)))
 
                 print(f"Fetching local script {i} from {target} ...")
-        
-        if(i == len(allScriptTags)):
-           print(f"----------------\n\nSuccesfully fetched {i} scripts from: {target}\n\nOutput directory is {outputDirectory}\n\n----------------")
+
+        if (i == len(allScriptTags)):
+            print(
+                f"----------------\n\nSuccesfully fetched {i} scripts from: {target}\n\nOutput directory is {outputDirectory}\n\n----------------")
+
+except:
+    print("-------------------------------------------")
+    print('Usage: python3 jsPWN.py "https://example.com/" h1')
+    print("Requirements: pip install -r requirements.txt\n")
+    print("The second argument(h1) is the HTML tag used to embed the javascript into the HTML context on remote pages.")
+    print("So, if the target website has: <script src = 'https://example.com/'> you need to check how the javascript on https://example.com/ is embedded")
+    print("As most websites use <pre> anyway, checking this for one of the external scripts should be sufficent\n")
+    print("Example: <html><body><pre>window.alert(1)</pre></body></html>   --->   python3 jsPWN.py 'https://example.com' pre")
+    print("-------------------------------------------")
