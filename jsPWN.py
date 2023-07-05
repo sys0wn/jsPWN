@@ -91,7 +91,7 @@ try:
 
             # Open and create the outputFile for remote source code
 
-            with open(outputDirectory + "/" + str(i), "w") as file:
+            with open(outputDirectory + "/" + str(i) + ".js", "w") as file:
 
                 # Parses the url(as string) of the remote script out of script tag
 
@@ -170,7 +170,7 @@ try:
 
             # Open and create the outputFile for local source code
 
-            with open(outputDirectory + "/" + str(i), "w") as file:
+            with open(outputDirectory + "/" + str(i) + ".js", "w") as file:
 
                 # Write the beautified javascript the file("string" remove <script)
 
