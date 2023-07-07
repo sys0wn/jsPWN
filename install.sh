@@ -1,4 +1,5 @@
 mv ../jsPWN ../jsPWNGitCanDelete
+mkdir ~/jsPWN
 cp requirements.txt ~/jsPWN/
 cp jsPWN.py ~/jsPWN/
 cd ~/jsPWN
