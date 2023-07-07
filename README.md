@@ -4,8 +4,8 @@ Installation:
 
 git clone https://github.com/sys0wn/jsPWN
 cd jsPWN
-chmod +x install.sh
-./install.sh                !!! This has to be run from with inside the jsPWN directory cloned from github !!!
+chmod +x installForZsh.sh
+./installForZsh.sh                !!! This has to be run from with inside the jsPWN directory cloned from github !!!
 
 -----MANUAL-----
 
