@@ -184,7 +184,7 @@ try:
         currentGlobalCounter += 1
 except:
     print("-------------------------------------------")
-    print(f"ERROR occured while fetching: {allScriptTags[currentGlobalCounter - 1]}")
+    print(f"ERROR occured while fetching: {allScriptTags[currentGlobalCounter - 1]} !!!")
     print("-------------------------------------------")
     print('Usage: python3 jsPWN.py "https://example.com/" h1')
     print("Requirements: pip install -r requirements.txt\n")
