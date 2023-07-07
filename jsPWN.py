@@ -14,8 +14,8 @@ try:
     print("Fetching HTML and parsing it ...")
 
     # Reads the target url from the command line argument
-
-    target = sys.argv[1]
+    if(len(sys.argv) > 1):
+        target = sys.argv[1]
 
     # Reads the htmlTag used to store the remote scripts
 
@@ -184,7 +184,7 @@ try:
         currentGlobalCounter += 1
 except:
     print("-------------------------------------------")
-    print(f"ERROR occured while fetching: {allScriptTags[currentGlobalCounter - 1]} !!!")
+    print(f"ERROR occured while fetching: {str(allScriptTags[currentGlobalCounter - 1])} !!!")
     print("-------------------------------------------")
     print('Usage: python3 jsPWN.py "https://example.com/" h1')
     print("Requirements: pip install -r requirements.txt\n")
