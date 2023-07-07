@@ -1,5 +1,14 @@
 Installation: 
 
+-----INSTALL SCRIPT-----
+
+git clone https://github.com/sys0wn/jsPWN
+cd jsPWN
+chmod +x install.sh
+./install.sh
+
+-----MANUAL-----
+
 git clone https://github.com/sys0wn/jsPWN
 
 cd jsPWN
