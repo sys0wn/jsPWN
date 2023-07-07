@@ -7,7 +7,7 @@ import jsbeautifier
 import re
 
 # Prints help if arguments are missing
-
+currentGlobalCounter = 0;
 
 try:
 
@@ -58,7 +58,7 @@ try:
 
     # Original sourceCodeFetch + 8 seconds per remote Script + 1 second for the local scripts
 
-    print(f"Runtime will be about {5 + len(allScriptTags) * 8 + 1} seconds")
+    print(f"Runtime will be about {5 + len(allScriptTags) * 8 + 1} seconds... Fetching {len(allScriptTags)} scripts")
 
     # Creates outputDirectory name after full target URL(replace for compatability)
 
@@ -181,8 +181,10 @@ try:
         if (i == len(allScriptTags)):
             print(
                 f"----------------\n\nSuccesfully fetched {i} scripts from: {target}\n\nOutput directory is {outputDirectory}\n\n----------------")
-
+        currentGlobalCounter++
 except:
+    print("-------------------------------------------")
+    print(f"ERROR occured while fetching: {allScriptTags[currentGlobalCounter - 1]}")
     print("-------------------------------------------")
     print('Usage: python3 jsPWN.py "https://example.com/" h1')
     print("Requirements: pip install -r requirements.txt\n")
