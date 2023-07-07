@@ -181,7 +181,7 @@ try:
         if (i == len(allScriptTags)):
             print(
                 f"----------------\n\nSuccesfully fetched {i} scripts from: {target}\n\nOutput directory is {outputDirectory}\n\n----------------")
-        currentGlobalCounter++
+        currentGlobalCounter += 1
 except:
     print("-------------------------------------------")
     print(f"ERROR occured while fetching: {allScriptTags[currentGlobalCounter - 1]}")
