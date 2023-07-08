@@ -185,9 +185,14 @@ try:
                 f"----------------\n\nSuccesfully fetched {i} scripts from: {target}\n\nOutput directory is {outputDirectory}\n\n----------------")
         currentGlobalCounter += 1
 except:
-    print("-------------------------------------------")
-    print(f"ERROR occured while fetching: {str(allScriptTags[currentGlobalCounter - 1])} !!!")
-    print("-------------------------------------------")
+    try:
+        print("-------------------------------------------")
+        print(f"ERROR occured while fetching: {str(allScriptTags[currentGlobalCounter - 1])} !!!")
+        print("-------------------------------------------")
+    except:
+        print("-------------------------------------------")
+        print(f"ERROR occured !!!")
+        print("-------------------------------------------")
     print('Usage: python3 jsPWN.py "https://example.com/" h1')
     print("Requirements: pip install -r requirements.txt\n")
     print("The second argument(h1) is the HTML tag used to embed the javascript into the HTML context on remote pages.")
