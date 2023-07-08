@@ -16,6 +16,8 @@ try:
     # Reads the target url from the command line argument
     if(len(sys.argv) > 1):
         target = sys.argv[1]
+    else:
+        raise Exception()
 
     # Reads the htmlTag used to store the remote scripts
 
