@@ -23,5 +23,5 @@ python3 jsPWN.py
 
 Value:         //This will search for keywords(like HTML classes,ids or just genereal stuff like "api") and output all of them together with the file origin
 
-grep * email -n                             
+grep * email -i -n                            
 
